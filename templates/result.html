@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Star Wars Character Information</title>
+</head>
+<body>
+    {% for item in information %}
+        <ul>
+        {% for key, value in item.items() %}
+            <li>{{ key }}:</li>
+            <ul>
+                {% for k, v in value.items() %}
+                    <li>{{ k }}: {{ v }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>

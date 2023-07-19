@@ -1,4 +1,6 @@
+from flask import Flask, render_template, request
 import requests
+app = Flask(__name__)
 
 def get_character_info(name):
     url = f"https://swapi.dev/api/people/?search={name}"
@@ -15,7 +17,6 @@ def get_character_info(name):
         character_info = []
         for character in characters:
             info = {
-                "Name": character["name"],
                 "Starship1": get_starship_info(character["starships"][0]),
                 "Starship2": get_starship_info(character["starships"][1]),
                 "Home Planet": get_planet_info(character["homeworld"]),
@@ -66,6 +67,14 @@ def get_species_info(url):
     else:
         return "N/A"
 
-character_name = input("Enter a Star Wars character name: ")
-result = get_character_info(character_name)
-print(result)
+@app.route('/', methods=['GET', 'POST'])
+def show_character_info():
+    if request.method == 'POST':
+        character_name = request.form['character_name']
+        information = get_character_info(character_name)
+        return render_template('result.html', character_name=character_name, information=information)
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run()

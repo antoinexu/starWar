@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Star Wars Character Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Star Wars Character Information</h1>
+        <form action="/" method="post">
+            <label for="character_name">Enter a Star Wars character name:</label>
+            <input type="text" id="character_name" name="character_name" required>
+            <input type="submit" value="Get Information">
+        </form>
+    </div>
+</body>
+</html>
+
