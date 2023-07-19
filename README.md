@@ -31,3 +31,6 @@ python app.py
 4. If multiple characters are found with the same name, a list of characters will be shown, and the user can choose the desired character to view detailed information.
 5. If no character is found for the entered name, a message will be displayed indicating that no character was found.
 
+## Result
+
+Please look 1.png and 2.png

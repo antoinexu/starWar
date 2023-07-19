@@ -15,7 +15,7 @@ def get_character_info(name):
         characters = data.get("results", [])
 
         if not characters:
-            return "No characters found."
+            return None
 
         characters = sorted(characters, key=lambda x: x["name"])
 
@@ -31,8 +31,7 @@ def get_character_info(name):
 
         return character_info
     else:
-        return "Error: Failed to retrieve character information."
-
+        return None
 
 def get_starship_info(url):
     response = requests.get(url)
@@ -77,7 +76,12 @@ def show_character_info():
     if request.method == 'POST':
         character_name = request.form['character_name']
         information = get_character_info(character_name)
-        return render_template('result.html', character_name=character_name, information=information)
+
+        if information is None:
+            error_message = "No characters found."
+            return render_template('error.html', error_message=error_message)
+        else:
+            return render_template('result.html', character_name=character_name, information=information)
     return render_template('index.html')
 
 if __name__ == '__main__':
