@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request
 import requests
+
 app = Flask(__name__)
 
 def get_character_info(name):
     url = f"https://swapi.dev/api/people/?search={name}"
+
+    requests.adapters.DEFAULT_RETRIES = 10
+    s = requests.session()
+    s.keep_alive = False
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
@@ -74,7 +79,6 @@ def show_character_info():
         information = get_character_info(character_name)
         return render_template('result.html', character_name=character_name, information=information)
     return render_template('index.html')
-
 
 if __name__ == '__main__':
     app.run()
